@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>test autocomplete</title>
+    <link rel="stylesheet" href="/tests/style.css">
+    <link rel="stylesheet" href="/tests/autocomplete.css">
+  </head>
+
+  <body>
+    <div id="search-container">
+      <form>
+        <input type="search" placeholder="Search something" autocomplete="off">
+        <button type="submit">
+            <i class="fas fa-search"></i>
+        </button>
+      </form>
+    </div>
+
+    <script type="module">
+      import { AutoComplete } from '/dist/urlid-graph-browser.min.js';
+
+      window.runTest = async function() {
+          log("Creating instance");
+          // TODO: clean after selecting
+          // TODO: clear search results after deleting input value
+          window.ac = new AutoComplete(
+              "#search-container",
+              {
+                  search: async function(term) {
+                    let result = await fetch(`/v1/search?term=${term}`);
+                    return await result.json();
+                  },
+                  renderItem: function(item) {
+                      return `<span class="fa">${item.group}</span> ${item.label}`;
+                  },
+                  onSelect: function(item) {
+                      log(`Selected: ${JSON.stringify(item)}`);
+                  },
+                  delay: 500,
+                  autoFocus: true,
+              }
+          );
+      }
+    </script>
+    <script src="/tests/base.js" type="text/javascript"></script>
+  </body>
+</html>
