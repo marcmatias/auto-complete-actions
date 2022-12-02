@@ -3,46 +3,132 @@
   <head>
     <meta charset="utf-8"/>
     <title>test autocomplete</title>
-    <link rel="stylesheet" href="/tests/style.css">
-    <link rel="stylesheet" href="/tests/autocomplete.css">
+    <link rel="stylesheet" href="demo-purpose.css">
+    <link rel="stylesheet" href="./dist/auto-complete-actions.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
   </head>
 
   <body>
-    <div id="search-container">
-      <form>
-        <input type="search" placeholder="Search something" autocomplete="off">
-        <button type="submit">
-            <i class="fas fa-search"></i>
+    <div class="navigation">
+      <div class="theme-toggle">
+        <button onclick="toggleTheme()">
+          <svg
+              style="overflow: visible"
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              >
+              <path
+                  d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"
+                  />
+          </svg>
         </button>
-      </form>
+      </div>
+      <input
+          type="range"
+          min="0.8"
+          max="1.2"
+          step="0.1"
+          value="1"
+          id="font-size"
+          title="Mudar tamanho da fonte"
+      />
     </div>
 
-    <script type="module">
-      import { AutoComplete } from '/dist/urlid-graph-browser.min.js';
+    <div id="my-container">
+      <div id="search-container" class="autocomplete-search">
+        <form class="clearable-input">
+          <input type="search" name="search" class="input-search" placeholder="Search something" autocomplete="off">
+          <div class="container-search-input-icons">
+            <div class="search-input-icons">
+              <span data-clear-input>
+                <i class="fas fa-times fa-fw"></i>
+              </span>
+              <span type="submit">
+                <i class="fas fa-search fa-fw"></i>
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
 
+
+    <script src="dist/auto-complete-actions.min.js"></script>
+    <script>
       window.runTest = async function() {
-          log("Creating instance");
-          // TODO: clean after selecting
-          // TODO: clear search results after deleting input value
-          window.ac = new AutoComplete(
-              "#search-container",
-              {
-                  search: async function(term) {
-                    let result = await fetch(`/v1/search?term=${term}`);
-                    return await result.json();
-                  },
-                  renderItem: function(item) {
-                      return `<span class="fa">${item.group}</span> ${item.label}`;
-                  },
-                  onSelect: function(item) {
-                      log(`Selected: ${JSON.stringify(item)}`);
-                  },
-                  delay: 500,
-                  autoFocus: true,
-              }
-          );
+        log("Creating instance");
+        window.ac = new AutoCompleteActions(
+          "#search-container",
+          {
+            search: async function(term) {
+              let result = [
+                {
+                  "id":"a766ef04-bd5c",
+                  "group":"person",
+                  "label":"CAMILA REIS MATOS BRITO MOREIRA"
+                },
+                {
+                  "id":"a766ef04-zxbs",
+                  "group":"person",
+                  "label":"JOÃO GOMES DA COSTA"
+                },
+                {
+                  "id":"a766ef04-lsoh",
+                  "group":"person",
+                  "label":"MARIA ANA ASTROGILDA"
+                },
+                {
+                  "id":"a766ef04-aaaa",
+                  "group":"person",
+                  "label":"CARLOS DANIEL DA SILVA"
+                },
+                {
+                  "id":"a766ef04-cccc",
+                  "group":"person",
+                  "label":"MARIO DA SILVA COSTA"
+                },
+                {
+                  "id":"a766ef04-bbbb",
+                  "group":"person",
+                  "label":"CAROLINA MOTA SILVEIRO"
+                },
+                {
+                  "id":"59bcfd7b-3e74",
+                  "group":"building",
+                  "label":"PADARIA ALICE REIS S.A."
+                },
+                {
+                  "id":"59bcfd7b-3333",
+                  "group":"building",
+                  "label":"AIRLINES BR LTDA"
+                },
+                {
+                  "id":"59bcfd7b-3333",
+                  "group":"building",
+                  "label":"CARS AND MOTORS S.A."
+                }
+              ];
+              return result;
+            },
+            renderItem: function(item) {
+              return `<span class="fa-solid fa-${item.group}"></span> ${item.label}`;
+            },
+            onSelect: function(item) {
+              log(`Selected: ${JSON.stringify(item)}`);
+            },
+            delay: 500,
+            autoFocus: true,
+            maxHeight: "300px"
+          }
+        );
       }
     </script>
-    <script src="/tests/base.js" type="text/javascript"></script>
+    <script src="./demo-purpose.js" type="text/javascript"></script>
   </body>
 </html>

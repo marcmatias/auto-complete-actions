@@ -1,0 +1,148 @@
+/* Vars autocomplete */
+:root {
+  --color-primary: #0085a6;
+  --color-bg: rgb(255, 255, 255);
+  --color-selected: rgb(226, 226, 226);
+  --color-text: rgb(12, 12, 12);
+  --color-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+
+  --radius: .25rem;
+
+  /* Input styles */
+  --input-pr: 4rem;
+  --input-h: 3rem;
+  --input-h-sm: 2.5rem;
+  --autocomplete-w: 290px;
+  --autocomplete-w-sm: 200px;
+}
+
+.dark {
+  --color-primary: rgb(235, 235, 235);
+  --color-bg: rgb(33, 33, 33);
+  --color-selected: rgb(70, 70, 70);
+  --color-text: rgb(255, 255, 255);
+}
+
+.autocomplete-search {
+  margin: 1rem;
+  width: var(--autocomplete-w);
+}
+
+.autocomplete-container {
+  position: relative;
+  z-index: 1;
+}
+
+.autocomplete-container > ul {
+  background-color: var(--color-bg);
+  cursor: pointer;
+  margin: 8px 0px 0px;
+  padding: 0px;
+  position: absolute;
+  max-height: 500px;
+  border: solid 1px var(--color-selected);
+  border-radius: var(--radius);
+  overflow-y: auto;
+  box-shadow: var(--color-shadow);
+  color: var(--color-text);
+  width: 100%;
+}
+
+.autocomplete-container > ul > li {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 0.9em;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  padding: 0.5rem 1rem;
+}
+
+.autocomplete-container > ul > li.selected {
+  background-color: var(--color-selected);
+}
+
+/* Cleareable button personalized */
+.clearable-input {
+  display: inline-block;
+  width: 100%;
+  position: relative;
+}
+
+.clearable-input > input ::-ms-clear {
+  display: none;
+}
+
+.clearable-input [data-clear-input] {
+  cursor: pointer;
+  display: none;
+}
+
+.container-search-input-icons {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.search-input-icons {
+  display: flex;
+  gap: 4px;
+}
+
+.search-input-icons span {
+  color: gray;
+  cursor: pointer;
+}
+
+.input-search {
+  margin-left: 0px;
+  width: 100%;
+  border-width: 0px;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border-radius: var(--radius);
+  height: var(--input-h);
+  font-size: 0.8em;
+  padding-left: 1rem;
+  padding-right: var(--input-pr);
+}
+
+.input-search:focus,
+.input-search:focus-visible {
+  outline: solid var(--color-primary) 2px;
+  outline-offset: 2px;
+}
+
+/* Hide default browser search type clear button */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+}
+
+@media (max-width: 992px) {
+  .container-search-input-icons {
+    right: 1rem;
+  }
+
+  .container-search-input-icons {
+    font-size: 0.9rem;
+  }
+
+  .input-search {
+    height: var(--input-h-sm);
+  }
+
+  .autocomplete-search {
+    width: var(--autocomplete-w-sm);
+  }
+
+  .autocomplete-container > ul > li {
+    font-size: 0.8em;
+  }
+}

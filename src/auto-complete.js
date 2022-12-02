@@ -19,6 +19,7 @@ export class AutoComplete {
       autoFocus = true,
       minLength = 3,
       delay = 500,
+      maxHeight = "",
     } = {}
   ) {
     this._timeout = undefined;
@@ -30,6 +31,7 @@ export class AutoComplete {
       autoFocus,
       minLength,
       delay,
+      maxHeight
     };
     this._options.renderItem = this._options.renderItem || this.renderItem;
     this._template = this.getTemplate();
@@ -245,17 +247,23 @@ export class AutoComplete {
   }
 
   getTemplate() {
+    const maxHeight = this._options.maxHeight;
+    const styleCustom = maxHeight ? `style="max-height: ${maxHeight}"` : "";
+
     let template = `
-          <ul class="autocomplete-result">
-          {% for item in results %}
+      <ul class="autocomplete-result" ${styleCustom}>
+        {% for item in results %}
           <li class="autocomplete-item" data-item="{{ item|jsonToBase64 }}">
             {{ item|renderItem|safe }}
           </li>
-          {% else %}
-          <li class="autocomplete-item autocomplete-item-none"> Nenhum resultado encontrado </li>
-          {% endfor %}
-          </ul>
-        `;
+        {% else %}
+          <li class="autocomplete-item autocomplete-item-none"> 
+            Nenhum resultado encontrado 
+          </li>
+        {% endfor %}
+      </ul>
+    `;
+
     let env = new nunjucks.Environment();
     env.addFilter("renderItem", this._options.renderItem, false);
     env.addFilter("jsonToBase64", jsonToBase64, false);

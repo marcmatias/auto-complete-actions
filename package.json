@@ -1,0 +1,54 @@
+{
+  "name": "auto-complete-actions",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Simple & customizable autocomplete, written in JS",
+  "source": "src/index.js",
+  "exports": {
+    "default": "./dist/autocomplete-actions.min.js"
+  },
+  "amdName": "AutoCompleteActions",
+  "scripts": {
+    "build": "microbundle -o dist/auto-complete-actions.min.js -f umd --sourcemap false --no-pkg-main",
+    "eslint": "eslint src/*",
+    "prettier": "prettier --write .",
+    "test": "jest --detectOpenHandles --forceExit",
+    "test-watch": "jest --detectOpenHandles --watchAll",
+    "watch": "microbundle -o dist/auto-complete-actions.min.js -f umd --no-pkg-main watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcmatias/autocomplete-actions.git"
+  },
+  "keywords": [
+    "alert",
+    "messages",
+    "toasts"
+  ],
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./jestGlobalSetup.js"
+    ]
+  },
+  "author": "",
+  "license": "(LGPL-3.0)",
+  "bugs": {
+    "url": "https://github.com/marcmatias/autocomplete-actions/issues"
+  },
+  "files": [
+    "dist/autocomplete-actions.min.js",
+    "dist/autocomplete-actions.min.css",
+    "README.md"
+  ],
+  "homepage": "https://github.com/marcmatias/autocomplete-actions#readme",
+  "devDependencies": {
+    "jest": "^29.3.1",
+    "lint": "^0.7.0",
+    "lite-server": "^2.6.1",
+    "microbundle": "^0.15.1",
+    "nunjucks": "^3.2.3",
+    "prettier": "^2.7.1",
+    "puppeteer": "^19.2.2"
+  },
+  "dependencies": {}
+}
