@@ -1,0 +1,11 @@
+services:
+  app:
+    command:
+      - /bin/sh
+      - -c
+      - |
+        yarn run build 2>/dev/null &
+        yarn run lite-server &
+        yarn run test-watch
+    volumes:
+      - ".:/app"
